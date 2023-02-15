@@ -96,7 +96,6 @@ jobs:
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH uola
         cd uola
         echo "UOLAROOT=$PWD" >> $GITHUB_ENV
-        echo "::set-output name=UOLAROOT::$(echo $PWD)"
         echo "useVersionInfo=$(git show -s --date=short --format="作者: %an<br/>日期: %cd<br/>Commit: %s")" >> $GITHUB_ENV
         echo "DATE=$(TZ=CST-8 date "+%Y年%m月%d号-%H点%M分%S秒")" >> $GITHUB_ENV
         echo "RELEASE_DATE=$(TZ=CST-8 date "+%Y%m%d%H%M%S")" >> $GITHUB_ENV
@@ -148,7 +147,6 @@ jobs:
         make diffconfig
         make package/compile -j$(($(nproc)+1)) IGNORE_ERRORS=1 || make package/compile -j1 V=s IGNORE_ERRORS=1
         make package/index
-        echo "::set-output name=status::success"
         
     
     # 设置环境变量
@@ -158,17 +156,13 @@ jobs:
         cd $UOLAROOT/bin/packages/*
         PLATFORM=$(basename `pwd`)
         echo "PLATFORM=$PLATFORM" >> $GITHUB_ENV
-        echo "::set-output name=PLATFORM::$(echo $PLATFORM)"
         cd $UOLAROOT/bin/targets/*
         TARGET=$(basename `pwd`)
         echo "TARGET=$TARGET" >> $GITHUB_ENV
-        echo "::set-output name=TARGET::$(echo $TARGET)"
         cd *
         SUBTARGET=$(basename `pwd`)
         echo "SUBTARGET=$SUBTARGET" >> $GITHUB_ENV
-        echo "::set-output name=SUBTARGET::$(echo $SUBTARGET)"
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
-        echo "::set-output name=FIRMWARE::$(echo $PWD)"
         
     # 获取固件
     - name: 获取固件
@@ -179,7 +173,6 @@ jobs:
         make package/install -j$(($(nproc)+1)) || make package/install -j1 V=s
         make target/install -j$(($(nproc)+1)) || make target/install -j1 V=s
         make checksum
-        echo "::set-output name=GENERATE_STATUS::success"
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=$(cat DEVICE_NAME)" >> $GITHUB_ENV
     
@@ -202,13 +195,11 @@ jobs:
       run: |
           sudo mkdir -p -m 777 $UOLAROOT/artifact/firmware && cd $UOLAROOT/artifact/firmware
           echo "ARTIFACT_FIRMWARE=$PWD" >> $GITHUB_ENV
-          echo "::set-output name=ARTIFACT_FIRMWARE::$(echo $PWD)"
           sudo mkdir -p -m 777 $UOLAROOT/artifact/package && cd $UOLAROOT/artifact/package
           echo "ARTIFACT_PACKAGE=$PWD" >> $GITHUB_ENV
-          echo "::set-output name=ARTIFACT_PACKAGE::$(echo $PWD)"
           sudo mkdir -p -m 777 $UOLAROOT/artifact/buildinfo && cd $UOLAROOT/artifact/buildinfo
           echo "ARTIFACT_BUILDINFO=$PWD" >> $GITHUB_ENV
-          echo "::set-output name=ARTIFACT_BUILDINFO::$(echo $PWD)"
+
           
     # 整理文件
     - name: 整理文件
@@ -220,7 +211,6 @@ jobs:
         cp -rf $(find $UOLAROOT/bin/targets/ -type f) $ARTIFACT_FIRMWARE
         cp -rf $(find $UOLAROOT/bin/packages/ -type f -name "*.ipk") $ARTIFACT_PACKAGE
         cp -rf $(find $UOLAROOT/bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") $ARTIFACT_BUILDINFO
-        echo "::set-output name=status::success" 
           
     # 生成标签
     - name: 生成标签
@@ -228,7 +218,7 @@ jobs:
       if: steps.compile.outputs.status == 'success' && env.CREATE_RELEASE == 'true' && !cancelled()
       run: |
         echo "RELEASE_TAG=${{ env.BRANCH }}-${{ env.RELEASE_DATE }}" >> $GITHUB_ENV
-        echo "::set-output name=status::success"
+
     
     # 上传固件信息
     - name: 上传固件信息

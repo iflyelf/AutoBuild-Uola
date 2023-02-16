@@ -19,8 +19,8 @@ on:
         required: true
         default: '编译Hiwifi_Hc5962 Uola固件'
   # 定时触发编译(每天早5点)
-  #schedule:
-  #  - cron: 0 21 * * 3
+  schedule:
+    - cron: 0 21 * * 3
   # 点赞☆Star触发编译
   watch:
      types: [started]
@@ -147,6 +147,7 @@ jobs:
         make diffconfig
         make package/compile -j$(($(nproc)+1)) IGNORE_ERRORS=1 || make package/compile -j1 V=s IGNORE_ERRORS=1
         make package/index
+        echo "status=success" >> $GITHUB_ENV
         
     
     # 设置环境变量
@@ -173,6 +174,7 @@ jobs:
         make package/install -j$(($(nproc)+1)) || make package/install -j1 V=s
         make target/install -j$(($(nproc)+1)) || make target/install -j1 V=s
         make checksum
+        echo "GENERATE_STATUS=success" >> $GITHUB_ENV
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=$(cat DEVICE_NAME)" >> $GITHUB_ENV
     
@@ -199,7 +201,6 @@ jobs:
           echo "ARTIFACT_PACKAGE=$PWD" >> $GITHUB_ENV
           sudo mkdir -p -m 777 $UOLAROOT/artifact/buildinfo && cd $UOLAROOT/artifact/buildinfo
           echo "ARTIFACT_BUILDINFO=$PWD" >> $GITHUB_ENV
-
           
     # 整理文件
     - name: 整理文件
@@ -211,6 +212,8 @@ jobs:
         cp -rf $(find $UOLAROOT/bin/targets/ -type f) $ARTIFACT_FIRMWARE
         cp -rf $(find $UOLAROOT/bin/packages/ -type f -name "*.ipk") $ARTIFACT_PACKAGE
         cp -rf $(find $UOLAROOT/bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") $ARTIFACT_BUILDINFO
+        echo "status=success" >> $GITHUB_ENV
+
           
     # 生成标签
     - name: 生成标签
@@ -218,11 +221,11 @@ jobs:
       if: steps.compile.outputs.status == 'success' && env.CREATE_RELEASE == 'true' && !cancelled()
       run: |
         echo "RELEASE_TAG=${{ env.BRANCH }}-${{ env.RELEASE_DATE }}" >> $GITHUB_ENV
-
+        echo "status=success" >> $GITHUB_ENV
     
     # 上传固件信息
     - name: 上传固件信息
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
           name: Uola_buildinfo
@@ -230,7 +233,7 @@ jobs:
 
     # 上传固件包文件
     - name: 上传固件包文件
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
         name: Uola_package
@@ -238,8 +241,30 @@ jobs:
     
     # 上传固件
     - name: 上传固件
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
         name: Uola_firmware
         path: ${{ env.FIRMWARE }}
+
+    
+    # 发行固件
+    - name: 发行固件
+      uses: softprops/action-gh-release@v1
+      if: steps.tag.outputs.status == 'success' && !cancelled()
+      env:
+        GITHUB_TOKEN: ${{ secrets.UOLA_TOKEN }}
+      with:
+        name: 自动编译 / ${{ env.RELEASE_TAG }}
+        tag_name: ${{ env.RELEASE_TAG }}
+        body: |            
+            1、本固件为自动编译
+            2、发行版中只提供完整的固件
+            3、需要单独IPK请到分支下载
+            4、源码：${{ env.REPO_URL }}
+            -- Build by ${{ env.BUILD_USER }} @ with Github Action on ${{ env.RELEASE_TAG }}
+            🚀 Auto build | 自动编译   
+            当前使用版本:            
+            ${{ env.useVersionInfo }}
+            ${{ github.event.commits[0].message }}
+        files: ${{ env.ARTIFACT_FIRMWARE }}/*

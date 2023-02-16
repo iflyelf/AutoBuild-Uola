@@ -147,7 +147,7 @@ jobs:
         make diffconfig
         make package/compile -j$(($(nproc)+1)) IGNORE_ERRORS=1 || make package/compile -j1 V=s IGNORE_ERRORS=1
         make package/index
-        echo "status=success" >> $GITHUB_ENV
+        echo "status=success" >> $GITHUB_OUTPUT
         
     
     # 设置环境变量
@@ -212,7 +212,7 @@ jobs:
         cp -rf $(find $UOLAROOT/bin/targets/ -type f) $ARTIFACT_FIRMWARE
         cp -rf $(find $UOLAROOT/bin/packages/ -type f -name "*.ipk") $ARTIFACT_PACKAGE
         cp -rf $(find $UOLAROOT/bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") $ARTIFACT_BUILDINFO
-        echo "status=success" >> $GITHUB_ENV
+        echo "status=success" >> $GITHUB_OUTPUT
 
           
     # 生成标签
@@ -221,7 +221,7 @@ jobs:
       if: steps.compile.outputs.status == 'success' && env.CREATE_RELEASE == 'true' && !cancelled()
       run: |
         echo "RELEASE_TAG=${{ env.BRANCH }}-${{ env.RELEASE_DATE }}" >> $GITHUB_ENV
-        echo "status=success" >> $GITHUB_ENV
+        echo "status=success" >> $GITHUB_OUTPUT
     
     # 上传固件信息
     - name: 上传固件信息

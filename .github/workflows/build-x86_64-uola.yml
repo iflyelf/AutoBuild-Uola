@@ -176,20 +176,6 @@ jobs:
         echo "GENERATE_STATUS=success" >> $GITHUB_ENV
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=$(cat DEVICE_NAME)" >> $GITHUB_ENV
-    
-    # 上传到分支
-    - name: 上传到分支
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BRANCH == 'true' && !cancelled() 
-      env:
-          GITHUB_TOKEN: ${{ secrets.UOLA_TOKEN }}
-      run: |
-          cd $UOLAROOT/bin
-          git init
-          git config user.name $GITHUB_USER_NAME
-          git config user.email $GITHUB_USER_EMAIL
-          git add .
-          git commit -m "Update Uola"
-          git push --force --quiet https://${{ env.GITHUB_TOKEN }}@$GITHUB_RROJECT HEAD:$BRANCH
       
     # 准备文件
     - name: 准备文件

@@ -1,0 +1,80 @@
+Package: ipv6helper
+Version: 1.0-4
+Depends: libc, luci-proto-ipv6, wget-ssl, libip6tc2, ip6tables, ip6tables-mod-nat, kmod-ipt-nat6, kmod-nf-nat6, odhcpd-ipv6only, odhcp6c, 6in4
+License: GPLv3
+Section: ipv6
+Architecture: all
+Installed-Size: 532
+Filename: ipv6helper_1.0-4_all.ipk
+Size: 1347
+SHA256sum: 5a7c269532ea42368ea42644857b9f125406617e0aa5a42593bb3cf31e348c52
+Description:  IPv6 Helper and Dynamic Update he.net of ip
+
+Package: luci-app-argon-config
+Version: 0.9
+Depends: libc, luci-compat
+Section: luci
+Architecture: all
+Installed-Size: 3595
+Filename: luci-app-argon-config_0.9_all.ipk
+Size: 4448
+SHA256sum: bfebd464c466729fc0b7e553088d2172b7057e71a77c8bb2f37b9b5a9731aa9c
+Description:  LuCI page for Argon Config
+
+Package: luci-app-clash
+Version: v1.8.0
+Depends: libc, luci-base, wget, iptables, coreutils-base64, coreutils, coreutils-nohup, bash, ipset, libustream-openssl20201210, curl, jsonfilter, ca-certificates, iptables-mod-tproxy, kmod-tun
+Section: luci
+Architecture: all
+Installed-Size: 3004066
+Filename: luci-app-clash_v1.8.0_all.ipk
+Size: 2828309
+SHA256sum: 739c30c09d275966b5a435b7fe2b9f6b4d08df44af837d441c152660a9261aa5
+Description:  Luci Interface for clash.
+
+Package: luci-app-diskman
+Version: v0.2.12
+Depends: libc, e2fsprogs, parted, smartmontools, blkid, kmod-fs-vfat, dosfstools, kmod-fs-msdos, kmod-nls-base, kmod-nls-utf8, kmod-nls-cp932, kmod-nls-cp936, kmod-nls-cp950, kmod-fs-exfat, exfat-mkfs, exfat-fsck, kmod-fs-ntfs, kmod-fs-btrfs, ntfs-3g-utils, btrfs-progs, lsblk
+License: AGPL-3.0
+Section: luci
+Architecture: all
+Installed-Size: 20600
+Filename: luci-app-diskman_v0.2.12_all.ipk
+Size: 21573
+SHA256sum: 308b0534780e8c9f0536a87fb7abc24bf72fd9d00f117359576648b90af47664
+Description:  Disk Manager interface for LuCI
+
+Package: luci-i18n-argon-config-zh-cn
+Version: git-23.069.52124-b507c8b
+Depends: libc, luci-app-argon-config
+Section: luci
+Architecture: all
+Installed-Size: 1456
+Filename: luci-i18n-argon-config-zh-cn_git-23.069.52124-b507c8b_all.ipk
+Size: 2343
+SHA256sum: 19773b6f9835acc7739f00148ceae6b7f2a6bb8ac5c8c5db464b874ddd52bf19
+Description:  Translation for luci-app-argon-config - 简体中文 (Chinese Simplified)
+
+Package: luci-i18n-diskman-zh-cn
+Version: git-23.069.52124-b507c8b
+Depends: libc, luci-app-diskman
+License: AGPL-3.0
+Section: luci
+Architecture: all
+Installed-Size: 1888
+Filename: luci-i18n-diskman-zh-cn_git-23.069.52124-b507c8b_all.ipk
+Size: 2791
+SHA256sum: 3f22735dc79e4aa27c474da1d738ba0616041fcb4462137d7386109689d10eb9
+Description:  Translation for luci-app-diskman - 简体中文 (Chinese Simplified)
+
+Package: luci-theme-argon
+Version: 2.2.9.5
+Depends: libc, curl, jsonfilter
+Section: luci
+Architecture: all
+Installed-Size: 414563
+Filename: luci-theme-argon_2.2.9.5_all.ipk
+Size: 415200
+SHA256sum: 73f8adee02f463e23d2b7726d4797557de0fcb086b493bb25131bfc9544fa505
+Description:  Argon Theme
+

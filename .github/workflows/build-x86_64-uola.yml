@@ -199,6 +199,18 @@ jobs:
         cp -rf $(find $UOLAROOT/bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") $ARTIFACT_BUILDINFO
         echo "status=success" >> $GITHUB_OUTPUT
 
+    - name: 编译 & 上传 Docker Image 至 Dockerhub
+      run: |
+          cd ${FIRMWARE}
+          docker import openwrt-$TARGET-$SUBTARGET-$DEVICE_NAME-rootfs.tar.gz danxiaonuo/uola:${{matrix.devices}}
+          docker login -u danxiaonuo -p ${{ secrets.DOCKER_HUB_PWD }}
+          docker push danxiaonuo/uola:${{matrix.devices}}
+    
+    - name: 上传 Docker Image 至 Aliyun Docker Registry
+      run: |
+          docker login -u ${{ secrets.ALIYUN_USERNAME }} -p ${{ secrets.ALIYUN_PWD }} registry.cn-hongkong.aliyuncs.com
+          docker tag danxiaonuo/uola:${{matrix.devices}} registry.cn-hongkong.aliyuncs.com/danxiaonuo/uola:${{matrix.devices}}
+          docker push registry.cn-hongkong.aliyuncs.com/danxiaonuo/uola:${{matrix.devices}}
           
     # 生成标签
     - name: 生成标签

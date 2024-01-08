@@ -1,0 +1,107 @@
+Package: ipv6helper
+Version: 5
+Depends: libc, odhcpd-ipv6only, odhcp6c, 6in4
+Source: feeds/custom/ipv6-helper
+SourceName: ipv6helper
+Section: ipv6
+SourceDateEpoch: 1704676534
+Maintainer: Lean
+Architecture: all
+Installed-Size: 644
+Filename: ipv6helper_5_all.ipk
+Size: 1373
+SHA256sum: b39371c7dd613a5e2ba30f3659eb3deec339e79e36301a52e228dd03e54d57c1
+Description:  IPv6 Helper and Dynamic Update he.net of ip
+
+Package: luci-app-argon-config
+Version: 1.0
+Depends: libc, luci-theme-argon
+Source: feeds/custom/luci-app-argon-config
+SourceName: luci-app-argon-config
+Section: luci
+SourceDateEpoch: 1704676534
+Maintainer: OpenWrt LuCI community
+Architecture: all
+Installed-Size: 3133
+Filename: luci-app-argon-config_1.0_all.ipk
+Size: 3975
+SHA256sum: 1b2d2ecfce8a8f4be43d5b71337b017efd4bc0c6ce00a0eab024ab0e88cbb49b
+Description:  LuCI app for Argon theme configuration
+
+Package: luci-app-diskman
+Version: v0.2.13
+Depends: libc, luci-compat, luci-lib-ipkg, e2fsprogs, parted, smartmontools, blkid, kmod-fs-vfat, dosfstools, kmod-fs-msdos, kmod-nls-base, kmod-nls-utf8, kmod-nls-cp932, kmod-nls-cp936, kmod-nls-cp950, kmod-fs-exfat, exfat-mkfs, exfat-fsck, kmod-fs-ntfs, kmod-fs-btrfs, ntfs-3g-utils, btrfs-progs, lsblk, luci-lua-runtime
+Source: feeds/custom/luci-app-diskman
+SourceName: luci-app-diskman
+License: AGPL-3.0
+Section: luci
+SourceDateEpoch: 1704676534
+Maintainer: OpenWrt LuCI community
+Architecture: all
+Installed-Size: 20675
+Filename: luci-app-diskman_v0.2.13_all.ipk
+Size: 21658
+SHA256sum: fd754cc242443bc63c24aac2c00057aabe74a8a5c9edfefde9bdeaf0ad7fe333
+Description:  Disk Manager interface for LuCI
+
+Package: luci-app-openclash
+Version: 0.45.164-beta
+Depends: libc, dnsmasq-full, coreutils, coreutils-nohup, bash, curl, ca-certificates, ipset, ip-full, libcap, libcap-bin, ruby, ruby-yaml, kmod-tun, unzip
+Source: feeds/custom/luci-app-openclash
+SourceName: luci-app-openclash
+Section: opt
+SourceDateEpoch: 1704676534
+Maintainer: vernesong
+Architecture: all
+Installed-Size: 5618448
+Filename: luci-app-openclash_0.45.164-beta_all.ipk
+Size: 5595793
+SHA256sum: a053cd3fb8ac847cd865d13a77a6badfb73dc23a663c479cbbfa64d0ee95cab3
+Description:  A LuCI support for clash
+
+Package: luci-i18n-argon-config-zh-cn
+Version: git-24.008.04534-9b08cdc
+Depends: libc, luci-app-argon-config
+Source: feeds/custom/luci-app-argon-config
+SourceName: luci-i18n-argon-config-zh-cn
+Section: luci
+SourceDateEpoch: 1704676534
+Maintainer: jerrykuku <jerrykuku@qq.com>
+Architecture: all
+Installed-Size: 1450
+Filename: luci-i18n-argon-config-zh-cn_git-24.008.04534-9b08cdc_all.ipk
+Size: 2322
+SHA256sum: 55e94fc47240567a1273f1924d074663ceaec22d8e5eb9933b1ff9113365e3d5
+Description:  Translation for luci-app-argon-config - 简体中文 (Chinese Simplified)
+
+Package: luci-i18n-diskman-zh-cn
+Version: git-24.008.04534-9b08cdc
+Depends: libc, luci-app-diskman
+Source: feeds/custom/luci-app-diskman
+SourceName: luci-i18n-diskman-zh-cn
+License: AGPL-3.0
+Section: luci
+SourceDateEpoch: 1704676534
+Maintainer: lisaac <https://github.com/lisaac/luci-app-diskman>
+Architecture: all
+Installed-Size: 1871
+Filename: luci-i18n-diskman-zh-cn_git-24.008.04534-9b08cdc_all.ipk
+Size: 2760
+SHA256sum: 2cf0c39c640fb473554e89928265d2d0977d2a536ff220f52f5a1b26116821a9
+Description:  Translation for luci-app-diskman - 简体中文 (Chinese Simplified)
+
+Package: luci-theme-argon
+Version: 2.3.1
+Depends: libc, curl, jsonfilter, luci-lua-runtime
+Source: feeds/custom/luci-theme-argon
+SourceName: luci-theme-argon
+Section: luci
+SourceDateEpoch: 1704676534
+Maintainer: OpenWrt LuCI community
+Architecture: all
+Installed-Size: 390314
+Filename: luci-theme-argon_2.3.1_all.ipk
+Size: 390933
+SHA256sum: d91a1206570346383af2d3b9c32046ab00a68b819aeb07c889ebc4bb9d010a05
+Description:  Argon Theme
+

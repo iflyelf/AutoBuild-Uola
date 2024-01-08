@@ -1,0 +1,1 @@
+{"architecture": "mipsel_24kc", "packages":{"ipv6helper": "5", "luci-app-argon-config": "1.0", "luci-app-diskman": "v0.2.13", "luci-app-openclash": "0.45.164-beta", "luci-i18n-argon-config-zh-cn": "git-24.008.04534-9b08cdc", "luci-i18n-diskman-zh-cn": "git-24.008.04534-9b08cdc", "luci-theme-argon": "2.3.1"}}
